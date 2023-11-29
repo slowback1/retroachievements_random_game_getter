@@ -1,7 +1,5 @@
 <script lang="ts">
-    import Button from "$lib/ui/buttons/Button.svelte";
+    import RegistrationArea from "$lib/partials/RegistrationArea.svelte";
 </script>
 
-<Button>
-    Hi there
-</Button>
+<RegistrationArea/>

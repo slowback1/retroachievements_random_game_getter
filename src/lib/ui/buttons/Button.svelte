@@ -1,45 +1,45 @@
 <script lang="ts">
-  export let testId: string = "";
-  type ButtonVariant = "primary" | "secondary";
-  type ButtonSize = "small" | "medium" | "large";
-  export let variant: ButtonVariant = "primary";
-  export let size: ButtonSize = "medium";
-  export let href: string = undefined;
-  export let disabled: boolean = false;
-  export let onClick: (event: Event) => void = () => {
-  };
+    export let testId: string = "";
+    type ButtonVariant = "primary" | "secondary";
+    type ButtonSize = "small" | "medium" | "large";
+    export let variant: ButtonVariant = "primary";
+    export let size: ButtonSize = "medium";
+    export let href: string = undefined;
+    export let disabled: boolean = false;
+    export let onClick: (event: Event) => void = () => {
+    };
 
-  function getClassList() {
-    let classes = "button";
-    let addClass = (cls) => classes += ` ${cls}`;
+    function getClassList() {
+        let classes = "button";
+        let addClass = (cls) => classes += ` ${cls}`;
 
-    if (variant === "secondary") addClass("button-secondary");
-    if (variant === "primary") addClass("button-primary");
-    if (size === "small") addClass("button-small");
-    if (size === "large") addClass("button-large");
+        if (variant === "secondary") addClass("button-secondary");
+        if (variant === "primary") addClass("button-primary");
+        if (size === "small") addClass("button-small");
+        if (size === "large") addClass("button-large");
 
-    return classes;
-  }
+        return classes;
+    }
 
-  const props = { class: getClassList(), "data-testid": testId };
+    const props = {class: getClassList(), "data-testid": testId};
 
 </script>
 
 {#if href}
-  <a
-    {...props}
-    {href}
-  >
-    <slot></slot>
-  </a>
+    <a
+            {...props}
+            {href}
+    >
+        <slot></slot>
+    </a>
 {:else}
-  <button
-    {...props}
-    on:click={onClick}
-    disabled="{disabled}"
-  >
-    <slot />
-  </button>
+    <button
+            {...props}
+            on:click={onClick}
+            disabled="{disabled}"
+    >
+        <slot/>
+    </button>
 {/if}
 <style>
     .button {
@@ -47,8 +47,6 @@
         border: 1px solid;
         padding: 8px 16px;
         text-decoration: none;
-        font-family: var(--font-family-primary);
-        font-size: var(--font-size-medium);
         transition: background-color 0.5s ease-in-out;
     }
 
@@ -70,23 +68,15 @@
     }
 
     .button-primary {
-        background-color: var(--color-yale-blue);
-        color: var(--color-nyanza);
-        border-color: var(--color-nyanza);
     }
 
     .button-primary:hover, .button-primary:focus {
-        background-color: var(--color-yale-blue-highlight);
     }
 
     .button-secondary {
         background-color: transparent;
-        color: var(--color-nyanza);
-        border-color: var(--color-nyanza);
     }
 
     .button-secondary:hover, .button-secondary:focus {
-        background-color: var(--color-nyanza);
-        color: var(--color-rich-blue);
     }
 </style>

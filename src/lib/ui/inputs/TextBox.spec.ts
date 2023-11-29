@@ -1,6 +1,6 @@
 import type { RenderResult } from '@testing-library/svelte';
 import TextBox from '$lib/ui/inputs/TextBox.svelte';
-import {  beforeEach } from 'vitest';
+import { beforeEach } from 'vitest';
 import { fireEvent, render } from '@testing-library/svelte';
 
 describe('TextBox', () => {
@@ -79,5 +79,13 @@ describe('TextBox', () => {
 
 		expect(label).toBeInTheDocument();
 		expect(label).toHaveTextContent('my cool label');
+	});
+
+	it('can mark the input has required', () => {
+		renderComponent({ id: 'test-id', required: true });
+
+		let input = result.getByTestId('test-id');
+
+		expect(input).toBeRequired();
 	});
 });
