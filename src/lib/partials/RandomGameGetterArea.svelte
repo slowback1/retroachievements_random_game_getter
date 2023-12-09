@@ -8,7 +8,10 @@
 
     let user: string = "";
     let apiKey: string = "";
+
     let selectedGame: string = "";
+    let selectedConsole: string = "";
+
     let isLoading: boolean = false;
 
     const api = new API();
@@ -25,7 +28,7 @@
         isLoading = true;
         let checkedConsoles = getCheckedConsoles();
 
-        let gameList: { Title: string }[] = [];
+        let gameList: { Title: string, ConsoleName: string }[] = [];
 
         for (let i = 0; i < checkedConsoles.length; i++) {
             console.log(i);
@@ -45,6 +48,7 @@
         let index = Math.floor(Math.random() * max) + min;
 
         selectedGame = gameList[index].Title;
+        selectedConsole = gameList[index].ConsoleName;
     }
 
     onMount(() => {
@@ -77,7 +81,7 @@
     {/if}
 
     {#if !!selectedGame}
-        <p>Your random game is {selectedGame}</p>
+        <p>Your random game is {selectedGame} ({selectedConsole}) </p>
     {/if}
 {/if}
 
