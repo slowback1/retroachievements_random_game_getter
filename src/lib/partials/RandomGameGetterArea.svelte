@@ -5,6 +5,7 @@
     import {consoleIds} from "$lib/api/consoleIds";
     import Button from "$lib/ui/buttons/Button.svelte";
     import API, {type Game} from "$lib/api/api";
+    import ConsoleCheckboxService from "$lib/services/ConsoleCheckboxService";
 
     let user: string = "";
     let apiKey: string = "";
@@ -14,6 +15,8 @@
     let selectedID: number = 0;
 
     let isLoading: boolean = false;
+
+    const consoleCheckboxService = new ConsoleCheckboxService();
 
     const api = new API();
 
@@ -51,6 +54,7 @@
         selectedID = gameList[index].ID;
     }
 
+
     onMount(() => {
         MessageBus.subscribe(Messages.RetroAchievementsUser, value => user = value);
         MessageBus.subscribe(Messages.RetroAchievementsApiKey, value => apiKey = value);
@@ -68,7 +72,8 @@
         {#each consoleIds as console}
             <label class="label">
                 {console.Name}
-                <input type="checkbox" id={`${console.ID}`}/>
+                <input type="checkbox" id={`${console.ID}`} checked={consoleCheckboxService.isChecked(console.ID)}
+                       on:change={() => consoleCheckboxService.onCheck(console.ID)}/>
             </label>
         {/each}
     </div>
