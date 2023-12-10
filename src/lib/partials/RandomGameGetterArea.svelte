@@ -2,9 +2,8 @@
     import {onMount} from "svelte";
     import MessageBus from "$lib/bus/MessageBus";
     import {Messages} from "$lib/bus/Messages";
-    import {consoleIds} from "$lib/api/consoleIds";
     import Button from "$lib/ui/buttons/Button.svelte";
-    import API, {type Game} from "$lib/api/api";
+    import API, {type Game, type GameConsole} from "$lib/api/api";
     import ConsoleCheckboxService from "$lib/services/ConsoleCheckboxService";
 
     let user: string = "";
@@ -54,10 +53,12 @@
         selectedID = gameList[index].ID;
     }
 
+    let consoles: GameConsole[] = [];
 
     onMount(() => {
         MessageBus.subscribe(Messages.RetroAchievementsUser, value => user = value);
         MessageBus.subscribe(Messages.RetroAchievementsApiKey, value => apiKey = value);
+        MessageBus.subscribe(Messages.ConsoleList, value => consoles = value || []);
     })
 
     $: isAuthenticated = !!user && !!apiKey;
@@ -69,7 +70,7 @@
     </p>
 {:else}
     <div class="console-list">
-        {#each consoleIds as console}
+        {#each consoles as console}
             <label class="label">
                 {console.Name}
                 <input type="checkbox" id={`${console.ID}`} checked={consoleCheckboxService.isChecked(console.ID)}

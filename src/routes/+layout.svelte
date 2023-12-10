@@ -1,16 +1,18 @@
 <script lang="ts">
-  import {onMount} from "svelte";
-  import MessageBus from "$lib/bus/MessageBus";
-  import getRealStorageProvider from "$lib/bus/realStorageProvider";
+    import {onMount} from "svelte";
+    import MessageBus from "$lib/bus/MessageBus";
+    import getRealStorageProvider from "$lib/bus/realStorageProvider";
+    import ConsoleListService from "$lib/services/ConsoleListService";
 
-  onMount(() => {
-    MessageBus.initialize(getRealStorageProvider());
-  });
+    onMount(() => {
+        MessageBus.initialize(getRealStorageProvider());
+        ConsoleListService.initialize();
+    });
 </script>
 <main>
-  <div id="content" class="main-content">
-    <slot />
-  </div>
+    <div id="content" class="main-content">
+        <slot/>
+    </div>
 </main>
 <style global>
     @import "../style/reset.css";

@@ -7,18 +7,40 @@ export type Game = {
 	ID: number;
 };
 
+export type GameConsole = {
+	ID: number;
+	Name: string;
+};
+
 export default class API {
 	private static base_url = 'https://retroachievements.org/API';
 
-	private buildUrl(url: string, payload: string) {
+	private buildUrl(url: string, payload?: string) {
 		let apiKey = MessageBus.getLastMessage(Messages.RetroAchievementsApiKey);
 		let user = MessageBus.getLastMessage(Messages.RetroAchievementsUser);
 
-		return `${API.base_url}/${url}?z=${user}&y=${apiKey}&${payload}`;
+		let combinedUrl = `${API.base_url}/${url}?z=${user}&y=${apiKey}`;
+
+		if (payload) combinedUrl = `${combinedUrl}&${payload}`;
+
+		return combinedUrl;
+	}
+
+	static hasCredentials() {
+		let apiKey = MessageBus.getLastMessage(Messages.RetroAchievementsApiKey);
+		let user = MessageBus.getLastMessage(Messages.RetroAchievementsUser);
+
+		return !!apiKey && !!user;
 	}
 
 	async getGameListForConsole(consoleId: string | number): Promise<Game[]> {
 		let url = this.buildUrl('API_GetGameList.php', `i=${consoleId}&f=1`);
+
+		return await fetch(url).then((res) => res.json());
+	}
+
+	async GetConsoles(): Promise<GameConsole[]> {
+		let url = this.buildUrl(`API_GetConsoleIDs.php`);
 
 		return await fetch(url).then((res) => res.json());
 	}
