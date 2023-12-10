@@ -4,13 +4,14 @@
     import {Messages} from "$lib/bus/Messages";
     import {consoleIds} from "$lib/api/consoleIds";
     import Button from "$lib/ui/buttons/Button.svelte";
-    import API from "$lib/api/api";
+    import API, {type Game} from "$lib/api/api";
 
     let user: string = "";
     let apiKey: string = "";
 
     let selectedGame: string = "";
     let selectedConsole: string = "";
+    let selectedID: number = 0;
 
     let isLoading: boolean = false;
 
@@ -28,11 +29,9 @@
         isLoading = true;
         let checkedConsoles = getCheckedConsoles();
 
-        let gameList: { Title: string, ConsoleName: string }[] = [];
+        let gameList: Game[] = [];
 
         for (let i = 0; i < checkedConsoles.length; i++) {
-            console.log(i);
-
             let gamesForConsole = await api.getGameListForConsole(checkedConsoles[i]);
 
             gameList.push(...gamesForConsole);
@@ -49,6 +48,7 @@
 
         selectedGame = gameList[index].Title;
         selectedConsole = gameList[index].ConsoleName;
+        selectedID = gameList[index].ID;
     }
 
     onMount(() => {
@@ -81,7 +81,10 @@
     {/if}
 
     {#if !!selectedGame}
-        <p>Your random game is {selectedGame} ({selectedConsole}) </p>
+        <p>Your random game is <a target="_blank" href={`https://retroachievements.org/game/${selectedID}`}>
+            {selectedGame} ({selectedConsole})
+        </a>
+        </p>
     {/if}
 {/if}
 

@@ -6,7 +6,6 @@ kanban-plugin: basic
 
 ## To Do
 
-- [ ] Add a link to the game in retroachievements
 - [ ] Add "memory" to what checkboxes are checked between page loads
 - [ ] Grab an updated list of consoles on page load
 - [ ] Improve performance of getting the random game (it currently makes a fetch call for each checkbox checked)
@@ -20,6 +19,7 @@ kanban-plugin: basic
 ## Done
 
 **Complete**
+- [x] Add a link to the game in retroachievements
 
 
 
