@@ -11,12 +11,12 @@ kanban-plugin: basic
 
 ## Doing
 
-- [ ] Add a toggle to turn on/off filtering games with achivements
 
 
 ## Done
 
 **Complete**
+- [x] Add a toggle to turn on/off filtering games with achivements
 - [x] Add a link to the game in retroachievements
 - [x] Add "memory" to what checkboxes are checked between page loads
 - [x] Grab an updated list of consoles on page load

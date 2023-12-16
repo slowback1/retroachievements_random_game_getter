@@ -28,8 +28,9 @@
         display: flex;
         align-items: center;
 
-        --slider-background-color: #ccc;
+        --slider-background-color: #565656;
         --slider-accent-color: #32ab32;
+        --slider-button-color: #bdbdbd;
     }
 
     .slider__button {
@@ -37,8 +38,9 @@
         height: 1.6em;
         position: relative;
         margin: 0 0 0 0.5em;
-        background: var(--slider-background);
+        background: var(--slider-background-color);
         border: none;
+        border-radius: 12px;
     }
 
     .slider__button::before {
@@ -46,10 +48,11 @@
         position: absolute;
         width: 1.3em;
         height: 1.3em;
-        background: #fff;
+        background: var(--slider-button-color);
         top: 0.13em;
         right: 1.5em;
         transition: transform 0.3s;
+        border-radius: 12px;
     }
 
     .slider__button[aria-checked='true'] {

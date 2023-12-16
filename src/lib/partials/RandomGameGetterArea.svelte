@@ -5,6 +5,8 @@
     import Button from "$lib/ui/buttons/Button.svelte";
     import API, {type Game, type GameConsole} from "$lib/api/api";
     import ConsoleCheckboxService from "$lib/services/ConsoleCheckboxService";
+    import AchievementFilterService from "$lib/services/AchievementFilterService";
+    import ToggleSwitch from "$lib/ui/inputs/ToggleSwitch.svelte";
 
     let user: string = "";
     let apiKey: string = "";
@@ -16,6 +18,7 @@
     let isLoading: boolean = false;
 
     const consoleCheckboxService = new ConsoleCheckboxService();
+    const achievementFilterService = new AchievementFilterService();
 
     const api = new API();
 
@@ -54,11 +57,13 @@
     }
 
     let consoles: GameConsole[] = [];
+    let shouldFilterAchievements: boolean = false;
 
     onMount(() => {
         MessageBus.subscribe(Messages.RetroAchievementsUser, value => user = value);
         MessageBus.subscribe(Messages.RetroAchievementsApiKey, value => apiKey = value);
         MessageBus.subscribe(Messages.ConsoleList, value => consoles = value || []);
+        MessageBus.subscribe(Messages.FilterGamesWithAchievements, value => shouldFilterAchievements = value || false);
     })
 
     $: isAuthenticated = !!user && !!apiKey;
@@ -69,6 +74,9 @@
         Please fill out the RetroAchievements user info above
     </p>
 {:else}
+    <ToggleSwitch id="achievement-filter" label="Filter out games without achievements"
+                  bind:checked={shouldFilterAchievements}
+                  onClick={() => achievementFilterService.toggleFilter() }/>
     <div class="console-list">
         {#each consoles as console}
             <label class="label">
