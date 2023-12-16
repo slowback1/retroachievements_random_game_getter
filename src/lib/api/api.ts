@@ -1,5 +1,6 @@
 import MessageBus from '$lib/bus/MessageBus';
 import { Messages } from '$lib/bus/Messages';
+import AchievementFilterService from '$lib/services/AchievementFilterService';
 
 export type Game = {
 	Title: string;
@@ -34,7 +35,8 @@ export default class API {
 	}
 
 	async getGameListForConsole(consoleId: string | number): Promise<Game[]> {
-		let url = this.buildUrl('API_GetGameList.php', `i=${consoleId}&f=1`);
+		let filterValue = new AchievementFilterService().getQueryStringValue();
+		let url = this.buildUrl('API_GetGameList.php', `i=${consoleId}&${filterValue}`);
 
 		return await fetch(url).then((res) => res.json());
 	}

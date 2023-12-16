@@ -7,11 +7,11 @@ kanban-plugin: basic
 ## To Do
 
 - [ ] Improve performance of getting the random game (it currently makes a fetch call for each checkbox checked)
-- [ ] Add a toggle to turn on/off filtering games with achivements
 
 
 ## Doing
 
+- [ ] Add a toggle to turn on/off filtering games with achivements
 
 
 ## Done
