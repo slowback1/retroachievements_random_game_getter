@@ -7,6 +7,7 @@
     import ConsoleCheckboxService from "$lib/services/ConsoleCheckboxService";
     import AchievementFilterService from "$lib/services/AchievementFilterService";
     import ToggleSwitch from "$lib/ui/inputs/ToggleSwitch.svelte";
+    import GameGetterService from "$lib/services/gameGetterService";
 
     let user: string = "";
     let apiKey: string = "";
@@ -17,10 +18,12 @@
 
     let isLoading: boolean = false;
 
+    const api = new API();
+
     const consoleCheckboxService = new ConsoleCheckboxService();
     const achievementFilterService = new AchievementFilterService();
+    const gameGetterService = new GameGetterService(api);
 
-    const api = new API();
 
     function getCheckedConsoles() {
         let checkboxes = Array.from(document.querySelectorAll("input[type='checkbox']")) as HTMLInputElement[];
@@ -34,26 +37,14 @@
         isLoading = true;
         let checkedConsoles = getCheckedConsoles();
 
-        let gameList: Game[] = [];
+        let game = await gameGetterService.getRandomGame(checkedConsoles);
 
-        for (let i = 0; i < checkedConsoles.length; i++) {
-            let gamesForConsole = await api.getGameListForConsole(checkedConsoles[i]);
-
-            gameList.push(...gamesForConsole);
+        if (game) {
+            selectedGame = game.Title;
+            selectedConsole = game.ConsoleName;
+            selectedID = game.ID;
         }
-
         isLoading = false;
-
-        if (gameList.length === 0) return;
-
-        let max = gameList.length;
-        let min = 0;
-
-        let index = Math.floor(Math.random() * max) + min;
-
-        selectedGame = gameList[index].Title;
-        selectedConsole = gameList[index].ConsoleName;
-        selectedID = gameList[index].ID;
     }
 
     let consoles: GameConsole[] = [];

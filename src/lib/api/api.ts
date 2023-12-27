@@ -1,6 +1,7 @@
 import MessageBus from '$lib/bus/MessageBus';
 import { Messages } from '$lib/bus/Messages';
 import AchievementFilterService from '$lib/services/AchievementFilterService';
+import type { IAPI } from '$lib/api/IAPI';
 
 export type Game = {
 	Title: string;
@@ -13,10 +14,10 @@ export type GameConsole = {
 	Name: string;
 };
 
-export default class API {
+export default class API implements IAPI {
 	private static base_url = 'https://retroachievements.org/API';
 
-	private buildUrl(url: string, payload?: string) {
+	buildUrl(url: string, payload?: string) {
 		let apiKey = MessageBus.getLastMessage(Messages.RetroAchievementsApiKey);
 		let user = MessageBus.getLastMessage(Messages.RetroAchievementsUser);
 
