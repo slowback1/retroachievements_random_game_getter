@@ -7,6 +7,9 @@ kanban-plugin: basic
 ## To Do
 
 - [ ] Improve performance of getting the random game (it currently makes a fetch call for each checkbox checked)
+- [ ] Add a filter for just multiplayer games
+- [ ] Add a filter for just "official" games (ie: no homebrews/hacks)
+- [ ] Make the app responsive
 
 
 ## Doing
