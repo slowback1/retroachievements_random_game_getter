@@ -49,12 +49,14 @@
 
     let consoles: GameConsole[] = [];
     let shouldFilterAchievements: boolean = false;
+    let shouldFilterHomebrew: boolean = false;
 
     onMount(() => {
         MessageBus.subscribe(Messages.RetroAchievementsUser, value => user = value);
         MessageBus.subscribe(Messages.RetroAchievementsApiKey, value => apiKey = value);
         MessageBus.subscribe(Messages.ConsoleList, value => consoles = value || []);
         MessageBus.subscribe(Messages.FilterGamesWithAchievements, value => shouldFilterAchievements = value || false);
+        MessageBus.subscribe(Messages.FilterHomebrewGames, value => shouldFilterHomebrew = value || false);
     })
 
     $: isAuthenticated = !!user && !!apiKey;
@@ -67,7 +69,12 @@
 {:else}
     <ToggleSwitch id="achievement-filter" label="Filter out games without achievements"
                   bind:checked={shouldFilterAchievements}
-                  onClick={() => achievementFilterService.toggleFilter() }/>
+                  onClick={() => achievementFilterService.toggleAchievementFilter() }/>
+    <ToggleSwitch id="homebrew-filter" label="Filter out games that are homebrews/hacks/etc."
+                  bind:checked={shouldFilterHomebrew}
+                  onClick={() => achievementFilterService.toggleHomebrewFilter()}
+    />
+
     <div class="console-list">
         {#each consoles as console}
             <label class="label">

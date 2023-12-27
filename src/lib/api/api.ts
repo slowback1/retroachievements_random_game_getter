@@ -36,10 +36,14 @@ export default class API implements IAPI {
 	}
 
 	async getGameListForConsole(consoleId: string | number): Promise<Game[]> {
-		let filterValue = new AchievementFilterService().getQueryStringValue();
+		let achievementFilterService = new AchievementFilterService();
+
+		let filterValue = achievementFilterService.getQueryStringValue();
 		let url = this.buildUrl('API_GetGameList.php', `i=${consoleId}&${filterValue}`);
 
-		return await fetch(url).then((res) => res.json());
+		let gameList = await fetch(url).then((res) => res.json());
+
+		return achievementFilterService.getFilteredList(gameList);
 	}
 
 	async GetConsoles(): Promise<GameConsole[]> {

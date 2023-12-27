@@ -3,5 +3,6 @@ export const Messages = {
 	RetroAchievementsApiKey: 'retroachievements_api-key',
 	CheckedConsoles: 'checked-consoles',
 	ConsoleList: 'console-list',
-	FilterGamesWithAchievements: 'filter-games-with-achievements'
+	FilterGamesWithAchievements: 'filter-games-with-achievements',
+	FilterHomebrewGames: 'filter-homebrew-games'
 };

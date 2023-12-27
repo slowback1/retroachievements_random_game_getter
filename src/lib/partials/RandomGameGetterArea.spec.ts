@@ -1,7 +1,7 @@
 import type { RenderResult } from '@testing-library/svelte';
 import RandomGameGetterArea from '$lib/partials/RandomGameGetterArea.svelte';
 import { afterEach, beforeEach } from 'vitest';
-import { render } from '@testing-library/svelte';
+import { fireEvent, render } from '@testing-library/svelte';
 import MessageBus from '$lib/bus/MessageBus';
 import { Messages } from '$lib/bus/Messages';
 
@@ -46,6 +46,20 @@ describe('RandomGameGetterArea', () => {
 			expect(message).not.toBeInTheDocument();
 		});
 
-		it('');
+		it('contains a toggle switch for the homebrew filtering', () => {
+			let toggle = result.getByTestId('homebrew-filter');
+
+			expect(toggle).toBeInTheDocument();
+		});
+
+		it('clicking the homebrew toggle updates the message bus for the homebrew filter', () => {
+			let toggle = result.getByTestId('homebrew-filter');
+
+			fireEvent.click(toggle.querySelector('button'));
+
+			let homebrewFilter = MessageBus.getLastMessage<boolean>(Messages.FilterHomebrewGames);
+
+			expect(homebrewFilter).toEqual(false);
+		});
 	});
 });
