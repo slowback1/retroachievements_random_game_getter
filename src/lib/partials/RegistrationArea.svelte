@@ -27,8 +27,8 @@
     const onApiKeyChange = (e) => apiKey = e.target.value;
 </script>
 
-<details bind:open={detailsAreOpen}>
-    <summary>Enter your RetroAchievements Information Here</summary>
+<details class="registration-area" bind:open={detailsAreOpen}>
+    <summary class="registration-area__summary">Enter your RetroAchievements Information Here</summary>
 
     <form on:submit={onSubmit}>
         <TextBox onChange={onUserChange} label="Username" bind:value={username} id="register__username" required/>
@@ -44,7 +44,7 @@
         <p data-testid="register__success">
             User Info Updated!
         </p>
-        <Button testId="register__success-close" onClick={hideSuccessMessage}>
+        <Button variant="secondary" size="small" testId="register__success-close" onClick={hideSuccessMessage}>
             Hide
         </Button>
     </div>
@@ -55,7 +55,6 @@
         display: flex;
         flex-direction: column;
         gap: 12px;
-        width: clamp(320px, 100%, 1000px);
         margin-top: 12px;
 
         & button {
@@ -69,11 +68,19 @@
         flex-direction: row;
         gap: 12px;
         align-items: center;
-        margin-top: 8px;
+        margin-bottom: 12px;
 
         & p {
             font-size: 18px;
             font-weight: bold;
         }
+    }
+
+    .registration-area {
+        border: 1px solid var(--color-primary-font);
+        padding: 16px;
+        border-radius: 12px;
+        background-color: var(--color-secondary-background);
+        margin-bottom: 12px;
     }
 </style>

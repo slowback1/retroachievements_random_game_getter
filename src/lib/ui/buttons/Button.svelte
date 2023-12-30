@@ -68,15 +68,20 @@
     }
 
     .button-primary {
+        background-color: var(--color-primary-background);
+        color: var(--color-primary-font);
     }
 
     .button-primary:hover, .button-primary:focus {
+        background-color: var(--color-primary-background-highlight);
     }
 
     .button-secondary {
         background-color: transparent;
+        color: var(--color-secondary-font);
     }
 
     .button-secondary:hover, .button-secondary:focus {
+        background-color: var(--color-primary-background);
     }
 </style>

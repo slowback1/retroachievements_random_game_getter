@@ -29,7 +29,7 @@
         align-items: center;
 
         --slider-background-color: #565656;
-        --slider-accent-color: #32ab32;
+        --slider-accent-color: var(--color-primary-background-highlight);
         --slider-button-color: #bdbdbd;
     }
 

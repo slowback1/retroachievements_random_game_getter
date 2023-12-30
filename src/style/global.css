@@ -13,4 +13,15 @@ html {
     --gutters-y: 12px;
     --gutters-x: 24px;
     --header-height: 0;
+
+    --background-color: #1c2617;
+    --font-color: #e3e3e3;
+    --color-primary-background: #3F2E56;
+    --color-primary-background-highlight: #5a407c;
+    --color-primary-font: #e1e1e1;
+    --color-secondary-background: #445d38;
+    --color-secondary-font: #F6F8FF;
+
+    background-color: var(--background-color);
+    color: var(--font-color);
 }
